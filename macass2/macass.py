@@ -53,9 +53,9 @@ def safely_strint(_str):
 def prompt(command_name, command):
 	while True:
 		print()
-		print('  ', wrap_string("Command name:", front=Fore.YELLOW) , wrap_string(command_name, front=Fore.CYAN))
-		print('  ', wrap_string("Command:", front=Fore.YELLOW), command)
-		print('\n  ', wrap_string("Do you want to exceute the command? [y/n] [yes]: ", front=Fore.RED), end='')
+		print('', wrap_string("Command name:", front=Fore.YELLOW) , wrap_string(command_name, front=Fore.CYAN))
+		print('', wrap_string("Command:", front=Fore.YELLOW), command)
+		print('\n', wrap_string("Do you want to exceute the command? [y/n] [yes]: ", front=Fore.RED), end='')
 		user_input = input()
 		if user_input == 'no' or user_input == 'n':
 			print()

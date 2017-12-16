@@ -18,4 +18,4 @@ main_input_message = underlinecode + ('macass:') + endcode
 main_error_message = Fore.RED + 'Please choose a valid number.' + Fore.RESET
 main_open_message = b_for_yellow + 'macass2' + Fore.WHITE + ' – Refreshed by amressam for 2018 –'
 
-data_file_path = path.dirname(path.realpath(__file__)) + '/data.json'
+data_file_path = path.dirname(path.realpath(__file__)) + '/data'
