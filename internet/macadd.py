@@ -4,7 +4,6 @@ from subprocess import Popen, PIPE
 from colorama import init, Fore, Back, Style 
 init(autoreset=True)
 
-#http://www.macdrifter.com/2011/12/python-and-the-mac-clipboard.html
 def get_clipboard_data(): 
 	p = Popen(['pbpaste'], stdout=PIPE)
 	p.wait()
