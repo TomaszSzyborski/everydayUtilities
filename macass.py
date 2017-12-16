@@ -1,0 +1,131 @@
+#macass2 Fri Dec 15 11:30 PM
+#stable Sat Dec 16 3:48 AM
+
+import sys
+from os import path, system
+from colorama import init, Fore, Back, Style
+from pprint import pprint #print json keeping its format
+import json, argparse
+
+init(autoreset=True) #colorama init
+
+global data, data_file_path
+global data_values
+
+underlinecode = '\033[4m'
+endcode = '\033[0m'
+
+b_for_yellow = Fore.YELLOW + Style.BRIGHT
+
+main_input_message = underlinecode + ('macass:') + endcode
+main_error_message = Fore.RED + 'Please choose a valid number.' + Fore.RESET
+main_open_message = b_for_yellow + 'macass2' + Fore.WHITE + ' – Refreshed by amressam for 2018 –'
+
+data_file_path = path.dirname(path.realpath(__file__)) + '/data.json'
+
+
+def wrap_string(_str, underline=False, front="", back=""):
+	return underlinecode if underline else "" + front + _str + back + endcode
+
+def print_pure_data(width=200):
+	pprint(data, width = width) #Look in pprint documentation
+
+def print_the_data():
+	print()
+	for i in range(len(data)):
+		print('  [{}]'.format(i+1), data[i])
+
+
+def early_init():
+	global data, data_values
+
+	system('clear')
+
+	print(main_open_message)
+
+	try:
+		pure_data = json.load(open(data_file_path))
+		data = list(pure_data.keys())
+		data_values = list(pure_data.values())
+		return True
+	except Exception as error:
+		print("Can't load data file.")
+		print(str(error))
+		exit(0) #temporary
+
+def args_init(printArgs: bool = False):
+	try:
+		parser = argparse.ArgumentParser()
+		parser.add_argument('commandnumber', type=int, nargs='*', help='Command numbers to quickly exceute.')
+		args = parser.parse_args()
+		if printArgs: print(args.commandnumber)
+		return args.commandnumber
+	except Exception as e:
+		print("Error in args_init")
+		print(e)
+
+def safely_strint(_str):
+	try: return int(_str)
+	except Exception as e:
+		print("Error in safely_strint")
+		print(e)
+		return False
+
+def prompt(command_name, command):
+	while True:
+		print()
+		print('  ', wrap_string("Command name:", front=Fore.YELLOW) , wrap_string(command_name, front=Fore.CYAN))
+		print('  ', wrap_string("Command:", front=Fore.YELLOW), command)
+		print('\n  ', wrap_string("Do you want to exceute the command? [y/n] [yes]: ", front=Fore.RED), end='')
+		user_input = input()
+		if user_input == 'no' or user_input == 'n':
+			print()
+			return False
+		else:
+			return True
+
+def excer(index):
+	user_strint = safely_strint(index)
+
+	if user_strint - 1 in range(len(data)):
+		if safely_strint (user_strint):
+			command = data_values [user_strint - 1]
+			command_name = data [user_strint - 1]
+			
+			if prompt(command_name, command):
+				system(command)
+				print()
+	else:
+		print(wrap_string("Enter a valid number from 1 to {}.".format(len(data)), front=Fore.RED))
+
+def main():
+	early_init()
+	args = args_init(printArgs = False)
+	if args:
+		for i in args:
+			strint = int(i)
+			excer(strint)
+		exit(0)
+
+	print_the_data()
+	print("\nFor commands enter 'cmds'.\n")
+
+	while True:
+		user_input = input(main_input_message)
+		if not user_input: continue
+
+		if user_input == "cmds":
+			print_the_data()
+			print()
+			continue
+
+		if user_input in 'exit -e e quit -q q ty -ty thankyou'.split() + ['thank you']:
+			raise KeyboardInterrupt #Smart move, Amr.
+
+		excer (user_input)
+
+try:
+	main()
+except KeyboardInterrupt:
+	print(wrap_string("\nGoodbye, Amr.", front=Fore.YELLOW + Style.BRIGHT))
+	exit(0)
