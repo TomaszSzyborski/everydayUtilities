@@ -9,8 +9,12 @@ dirlist = listdir(desktop_dir) #list all the files in your desktop
 nofiles = True
 count = 0
 
+def checker(_str): #adjust the condition for your case
+	if _str.endswith('.png') and 'screen shot' in _str.lower(): return True
+	else: return False
+
 for i in dirlist:
-	if i.endswith('.png') and 'screen shot' in i.lower(): #adjust the condition for your case
+	if checker(i):
 		nofiles = False
 		count += 1
 		file_path = path.join(desktop_dir, i);
