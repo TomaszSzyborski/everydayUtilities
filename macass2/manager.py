@@ -5,7 +5,7 @@ def append(pairs:dict):
 		pure_data = json.load(file)
 
 		for key, v in pairs.items():
-			if v in [None, '']:
+			if v == "@re":
 				if key in pure_data:
 					pure_data.pop(key)
 			else:
@@ -21,7 +21,7 @@ def run(data = None, using_index=False):
 	current_data = dict()
 
 	while True:
-		user_input = input("Key Value (blank to stop):")
+		user_input = input("Key Value(@re to remove the key) (blank to stop):")
 		if not user_input: break
 
 		user_input = user_input.split()

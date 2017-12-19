@@ -11,5 +11,5 @@
     "Enable AirDrop": "sudo ifconfig awdl0 up",
     "Flush DNS": "sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder; say cache flushed",
     "Clear Terminal's History": "rm ~/.bash_history; touch .bash_history",
-    "Check wifi connected devices": "sudo nmap -sP 192.168.1.0/24",
+    "Check wifi connected devices": "sudo nmap -sP 192.168.1.0/24"
 }
