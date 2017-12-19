@@ -3,24 +3,23 @@
 #py3.6
 
 from ma_head import *
+from manager import run
 
 def wrap_string(_str, underline=False, front="", back=""):
 	return underlinecode if underline else "" + front + _str + back + endcode
 
 def print_pure_data(width=200):
+	loadJSON()
 	pprint(data, width = width) #Look in pprint documentation
 
 def print_the_data():
+	loadJSON()
 	print()
 	for i in range(len(data)):
 		print('  [{}]'.format(i+1), data[i])
 
-def early_init():
+def loadJSON():
 	global data, data_values
-
-	system('clear')
-
-	print(main_open_message)
 
 	try:
 		pure_data = json.load(open(data_file_path))
@@ -31,6 +30,13 @@ def early_init():
 		print("Can't load data file.")
 		print(str(error))
 		exit(0) #temporary
+
+def early_init():
+	system('clear')
+
+	print(main_open_message)
+
+	return loadJSON()
 
 def args_init(printArgs: bool = False):
 	try:
@@ -78,6 +84,7 @@ def excer(index):
 		print(wrap_string("Enter a valid number from 1 to {}.".format(len(data)), front=Fore.RED))
 
 def main():
+	global data
 	early_init()
 	args = args_init(printArgs = False)
 	if args:
@@ -93,9 +100,17 @@ def main():
 		user_input = input(main_input_message)
 		if not user_input: continue
 
-		if user_input == "cmds":
+		if user_input.lower() == "cmds":
 			print_the_data()
 			print()
+			continue
+
+		if user_input.lower() == "imanage":
+			run(using_index=True, data=data)
+			continue
+
+		if user_input.lower() == "manage":
+			run()
 			continue
 
 		if user_input in 'exit -e e quit -q q ty -ty thankyou'.split() + ['thank you']:
