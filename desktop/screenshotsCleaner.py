@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from os import path, listdir, rename, system
 from sys import argv
 
