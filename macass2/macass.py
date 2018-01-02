@@ -1,7 +1,6 @@
 #!/usr/bin/env python3.6
 #macass2 Fri Dec 15 11:30 PM
 #stable Sat Dec 16 3:48 AM
-#py3.6
 
 from ma_head import *
 from manager import run
