@@ -9,11 +9,7 @@ def heat():
 	for i in range(1*10**16):
 		i = i ** i
 
-try:
-	for i in range(processCount):
-		print("Starting process number:", i + 1)
-		t = Process(target=heat)
-		t.start()
-except KeyboardInterrupt:
-	print()
-	exit()
+for i in range(processCount):
+	print("Starting process number:", i + 1)
+	t = Process(target=heat)
+	t.start()
