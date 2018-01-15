@@ -6,6 +6,6 @@ example: `heatup.py 4`<br>
 
 The script will determine the number of cores automatically if no argument is given.
 
-<b>THIS SCRIPT WILL DRAIN YOUR LAPTOP'S BATTERY, MAKE SURE TO BE CONNECTED TO POWER SOURCE.
+<b>THIS SCRIPT WILL DRAIN YOUR LAPTOP'S BATTERY, MAKE SURE TO BE CONNECTED TO A POWER SOURCE.
 
 Please, Don’t run it in summer.</b>
