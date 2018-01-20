@@ -44,7 +44,7 @@ def early_init():
 	print(main_open_message)
 	loadJSON()
 
-def args_init(printArgs: bool = False):
+def args_init(printArgs: bool = False) -> bool or list:
 	try:
 		parser = argparse.ArgumentParser()
 		parser.add_argument('commandnumber', type=int, nargs='*', help='Command numbers to quickly exceute.')
