@@ -20,7 +20,7 @@ main_open_message = bright_yellow + 'macass2' + Fore.WHITE + ' – Refreshed by 
 
 data_file_path = path.dirname(path.realpath(__file__)) + '/data'
 
-def safely_strint(_str) -> bool or str:
+def safely_strint(_str) -> bool or int:
 	try: return int(_str)
 	except Exception as e:
 		print("Error in safely_strint")
