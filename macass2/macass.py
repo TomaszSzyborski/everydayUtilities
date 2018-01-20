@@ -6,9 +6,17 @@ from ma_head import *
 from manager import run
 
 def wrap_string(_str, underline=False, front="", back=""):
-	return underlinecode if underline else "" + front + _str + back + endcode
+	final_string = ""
+	
+	if underline:
+		final_string += underlinecode
 
-def print_pure_data(width=200):
+	final_string += front + _str + back + endcode
+
+	return final_string
+	# return underlinecode if underline else "" + front + _str + back + endcode
+
+def print_pure_json(width=200):
 	loadJSON()
 	pprint(data, width = width) #Look in pprint documentation
 
@@ -22,10 +30,10 @@ def loadJSON():
 	global data, data_values
 
 	try:
-		pure_data = json.load(open(data_file_path))
-		data = list(pure_data.keys())
-		data_values = list(pure_data.values())
-		return True
+		with open(data_file_path) as file:
+			pure_data = json.load(file)
+			data = list(pure_data.keys())
+			data_values = list(pure_data.values())
 	except Exception as error:
 		print("Can't load data file.")
 		print(str(error))
@@ -33,10 +41,8 @@ def loadJSON():
 
 def early_init():
 	system('clear')
-
 	print(main_open_message)
-
-	return loadJSON()
+	loadJSON()
 
 def args_init(printArgs: bool = False):
 	try:
@@ -45,18 +51,13 @@ def args_init(printArgs: bool = False):
 		args = parser.parse_args()
 		if printArgs: print(args.commandnumber)
 		return args.commandnumber
+
 	except Exception as e:
 		print("Error in args_init")
 		print(e)
-
-def safely_strint(_str):
-	try: return int(_str)
-	except Exception as e:
-		print("Error in safely_strint")
-		print(e)
 		return False
 
-def prompt(command_name, command):
+def confirm_execution(command_name, command) -> bool:
 	while True:
 		print()
 		print('', wrap_string("Command name:", front=Fore.YELLOW) , wrap_string(command_name, front=Fore.CYAN))
@@ -69,17 +70,16 @@ def prompt(command_name, command):
 		else:
 			return True
 
-def excer(index):
-	user_strint = safely_strint(index)
+def executer(index):
+	user_choice = safely_strint(index)
 
-	if user_strint - 1 in range(len(data)):
-		if safely_strint (user_strint):
-			command = data_values [user_strint - 1]
-			command_name = data [user_strint - 1]
-			
-			if prompt(command_name, command):
-				system(command)
-				print()
+	if user_choice - 1 in range(len(data)):
+		command = data_values [user_choice - 1]
+		command_name = data [user_choice - 1]
+		
+		if confirm_execution(command_name, command): # if the user wants to execute, then do it.
+			system(command)
+			print()
 	else:
 		print(wrap_string("Enter a valid number from 1 to {}.".format(len(data)), front=Fore.RED))
 
@@ -89,8 +89,8 @@ def main():
 	args = args_init(printArgs = False)
 	if args:
 		for i in args:
-			strint = int(i)
-			excer(strint)
+			i = safely_strint(i)
+			executer(i)
 		exit(0)
 
 	print_the_data()
@@ -110,13 +110,13 @@ def main():
 			continue
 
 		if user_input.lower() == "manage":
-			run()
+			run() # look into manager.py
 			continue
 
 		if user_input in 'exit -e e quit -q q ty -ty thankyou'.split() + ['thank you']:
 			raise KeyboardInterrupt #Smart move, Amr.
 
-		excer (user_input)
+		executer(user_input)
 
 try:
 	main()

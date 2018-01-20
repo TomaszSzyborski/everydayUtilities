@@ -12,5 +12,6 @@
     "Flush DNS": "sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder; say cache flushed",
     "Clear Terminal's History": "rm ~/.bash_history; touch .bash_history",
     "Clear Terminal's Sessions": "rm ~/.bash_sessions",
-    "Check wifi connected devices": "sudo nmap -sP 192.168.1.0/24"
+    "Check wifi connected devices": "sudo nmap -sP 192.168.1.0/24",
+    "Check processes listening on port 80": "sudo nmap -sP 192.168.1.0/24"
 }
