@@ -1,5 +1,5 @@
-# everydayUtilities
-Tools i wrote for fun in Python for macOS.
+# Everyday Utilities
+Tools I wrote for fun in Python.
 
 - [macass2](../master/macass2)
 - [istate](../master/istate)
